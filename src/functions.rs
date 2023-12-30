@@ -26,3 +26,15 @@ pub fn div_nlnln(n: f64, val: f64) -> f64 {
     let div = n*(n.ln().ln());
     return val / div;
 }
+
+pub fn div_z3f1(n: f64, val: f64) -> f64 {
+    let mult = val * n.ln().ln();
+    let div = n.ln();
+    return mult / div;
+}
+
+pub fn div_z3f2(n: f64, val: f64) -> f64 {
+    let mult = val * 2f64.ln() ;
+    let div = n.ln().ln();
+    return mult / div;
+}

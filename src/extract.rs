@@ -1,4 +1,4 @@
-pub(crate) fn b(value: &(f64, [f64; 4], Vec<crate::dovecote::DoveCote>)) -> (f64, f64, Vec<f64>) {
+pub(crate) fn b(value: &(f64, Vec<f64>, Vec<crate::dovecote::DoveCote>)) -> (f64, f64, Vec<f64>) {
     let x = value.0;
     let avg = value.1[0];
     let mut vals = Vec::new();
@@ -8,7 +8,7 @@ pub(crate) fn b(value: &(f64, [f64; 4], Vec<crate::dovecote::DoveCote>)) -> (f64
     return (x, avg, vals);
 }
 
-pub(crate) fn u(value: &(f64, [f64; 4], Vec<crate::dovecote::DoveCote>)) -> (f64, f64, Vec<f64>) {
+pub(crate) fn u(value: &(f64, Vec<f64>, Vec<crate::dovecote::DoveCote>)) -> (f64, f64, Vec<f64>) {
     let x = value.0;
     let avg = value.1[1];
     let mut vals = Vec::new();
@@ -18,7 +18,7 @@ pub(crate) fn u(value: &(f64, [f64; 4], Vec<crate::dovecote::DoveCote>)) -> (f64
     return (x, avg, vals);
 }
 
-pub(crate) fn c(value: &(f64, [f64; 4], Vec<crate::dovecote::DoveCote>)) -> (f64, f64, Vec<f64>) {
+pub(crate) fn c(value: &(f64, Vec<f64>, Vec<crate::dovecote::DoveCote>)) -> (f64, f64, Vec<f64>) {
     let x = value.0;
     let avg = value.1[2];
     let mut vals = Vec::new();
@@ -28,7 +28,7 @@ pub(crate) fn c(value: &(f64, [f64; 4], Vec<crate::dovecote::DoveCote>)) -> (f64
     return (x, avg, vals);
 }
 
-pub(crate) fn d(value: &(f64, [f64; 4], Vec<crate::dovecote::DoveCote>)) -> (f64, f64, Vec<f64>) {
+pub(crate) fn d(value: &(f64, Vec<f64>, Vec<crate::dovecote::DoveCote>)) -> (f64, f64, Vec<f64>) {
     let x = value.0;
     let avg = value.1[3];
     let mut vals = Vec::new();
@@ -38,12 +38,22 @@ pub(crate) fn d(value: &(f64, [f64; 4], Vec<crate::dovecote::DoveCote>)) -> (f64
     return (x, avg, vals);
 }
 
-pub(crate) fn dc(value: &(f64, [f64; 4], Vec<crate::dovecote::DoveCote>)) -> (f64, f64, Vec<f64>) {
+pub(crate) fn dc(value: &(f64, Vec<f64>, Vec<crate::dovecote::DoveCote>)) -> (f64, f64, Vec<f64>) {
     let x = value.0;
     let avg = value.1[3] - value.1[2];
     let mut vals = Vec::new();
     value.2.iter().for_each(|dovecote| {
         vals.push((dovecote.all_two - dovecote.all_one) as f64);
+    });
+    return (x, avg, vals);
+}
+
+pub(crate) fn l(value: &(f64, Vec<f64>, Vec<crate::dovecote::DoveCote>)) -> (f64, f64, Vec<f64>) {
+    let x = value.0;
+    let avg = value.1[4];
+    let mut vals = Vec::new();
+    value.2.iter().for_each(|dovecote| {
+        vals.push(dovecote.max_doves as f64);
     });
     return (x, avg, vals);
 }

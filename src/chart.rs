@@ -2,7 +2,7 @@ use std::iter;
 use std::ops::Range;
 use plotters::prelude::*;
 
-pub fn draw_chart<T>(x_range: Range<f64>, scalar: f64, values: &Vec<T>, extractor: fn(&T) -> (f64, f64, Vec<f64>), transformator: fn(f64, f64) -> f64, filename: &str) {
+pub fn draw_chart2<T>(x_range: Range<f64>, scalar: f64, values: &Vec<T>, extractor: fn(&T) -> (f64, f64, Vec<f64>), transformator: fn(f64, f64) -> f64, filename: &str, all_vals: bool) {
     let file = format!("charts/{}.png", filename);
 
     let min = 0f64;
@@ -34,7 +34,13 @@ pub fn draw_chart<T>(x_range: Range<f64>, scalar: f64, values: &Vec<T>, extracto
 
     for value in values {
         let (x, avg, vals) = extractor(value);
-        ctx.draw_series(vals.iter().map(|y| Circle::new((x, transformator(x, *y)), 2, RED.filled()))).unwrap();
+        if all_vals {
+            ctx.draw_series(vals.iter().map(|y| Circle::new((x, transformator(x, *y)), 2, RED.filled()))).unwrap();
+        }
         ctx.draw_series(iter::once(Circle::new((x, transformator(x, avg)), 2, BLUE.filled()))).unwrap();
     }
+}
+
+pub fn draw_chart<T>(x_range: Range<f64>, scalar: f64, values: &Vec<T>, extractor: fn(&T) -> (f64, f64, Vec<f64>), transformator: fn(f64, f64) -> f64, filename: &str){
+    draw_chart2(x_range, scalar, values, extractor, transformator, filename, true);
 }
